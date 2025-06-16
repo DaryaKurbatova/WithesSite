@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Частые вопросы — Лавка Ведьм</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Caveat:wght@500;700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .faq-list {
+            margin: 48px auto 0 auto;
+            max-width: 900px;
+            width: 100%;
+            font-size: 1.35rem;
+        }
+        .faq-item {
+            background: #fffbe6 url('images/paper-texture.jpg') repeat;
+            border-radius: 16px;
+            border: 2px solid #B87333;
+            box-shadow: 0 2px 10px #6B8E2333;
+            margin-bottom: 32px;
+            padding: 0;
+            transition: box-shadow 0.2s;
+        }
+        .faq-q-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            font-family: 'Caveat', cursive;
+            color: #4E3524;
+            font-size: 1.55em;
+            font-weight: bold;
+            text-align: left;
+            padding: 32px 32px 16px 32px;
+            cursor: pointer;
+            border-radius: 16px;
+            transition: background 0.15s, color 0.15s;
+        }
+        .faq-q-btn:hover, .faq-q-btn:focus {
+            background: #f9e8c0;
+            color: #4E3524;
+        }
+        .faq-item.open .faq-q-btn {
+            color: #4E3524;
+            background: none;
+        }
+        .faq-a {
+            font-family: 'Caveat', cursive;
+            color: #1E3F20;
+            font-size: 1.25em;
+            line-height: 1.6;
+            padding: 0 32px 28px 32px;
+            display: none;
+            animation: fadeIn 0.25s;
+        }
+        .faq-item.open .faq-a {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px);}
+            to   { opacity: 1; transform: translateY(0);}
+        }
+        .faq-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .faq-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            color: #4E3524;
+            margin: 32px 0 0 0;
+            flex: none;
+            text-align: center;
+            width: 100%;
+        }
+        .faq-controls .back-to-shop-btn {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .back-to-shop-btn {
+            background: var(--copper);
+            color: #fff;
+            border-radius: 18px;
+            padding: 12px 30px;
+            font-size: 1.25rem;
+            font-family: 'Caveat', cursive;
+            text-decoration: none;
+            box-shadow: 0 2px 8px var(--brown)55;
+            transition: background 0.2s, color 0.2s;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-top: 0;
+            margin-bottom: 0;
+            border: none;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1.2;
+        }
+        .back-to-shop-btn:hover, .back-to-shop-btn:focus {
+            background: var(--swamp);
+            color: #fff;
+        }
+        .back-to-shop-btn, .back-to-shop-btn:focus, .back-to-shop-btn:hover {
+            text-decoration: none;
+        }
+        .faq-bottom-btn-wrap {
+            text-align: center;
+            margin: 48px 0 30px 0;
+        }
+        ::-webkit-scrollbar {
+            width: 14px;
+            background: #f5e8c6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #B87333 0%, #6B8E23 100%);
+            border-radius: 8px;
+            border: 3px solid #f5e8c6;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #6B8E23 0%, #B87333 100%);
+        }
+        ::-webkit-scrollbar-corner {
+            background: #f5e8c6;
+        }
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #B87333 #f5e8c6;
+        }
+        @media (max-width: 700px) {
+            .faq-list {
+                font-size: 1.08rem;
+                padding: 0 2vw;
+            }
+            .faq-q-btn {
+                padding: 18px 8px 10px 12px;
+                font-size: 1.15em;
+            }
+            .faq-a {
+                padding: 0 12px 18px 12px;
+                font-size: 1.05em;
+            }
+            .faq-controls {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .faq-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="side-img left"></div>
+    <div class="side-img right"></div>
+    <header>
+        <div class="logo">Лавка Ведьм</div>
+        <div class="search-bar" style="visibility:hidden;height:0;padding:0;margin:0;"></div>
+    </header>
+    <a href="cart.html" class="cart-link">
+        🧺 Корзина <span class="cart-count" id="cartCount">0</span>
+    </a>
+    <div class="main-content">
+        <main>
+            <div class="faq-controls">
+                <div class="faq-title">Частые вопросы</div>
+                <a href="index.html" class="back-to-shop-btn">← Вернуться на главную</a>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Как узнать, где мой заказ?</button>
+                    <div class="faq-a">Обратитесь к Вашему домашнему питомцу, вся информация передается ему. Если же у Вас нет питомца — спросите напрямую у своего покровителя.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Как отменить заказ?</button>
+                    <div class="faq-a">Совершите ритуал возвращения и богатства в день оплаты заказа, либо спустя дни дня и три ночи. В обоих случаях отмена произойдет успешно.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Что делать, если я не успел/а выполнить ритуалы и с момента оплаты прошло больше времени?</button>
+                    <div class="faq-a">Свяжитесь с нами по птичьей почте. Не волнуйтесь, мы обязательно поможем вам, если в заказе не было ничего живого!</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Могу ли я оплатить заказ при получении?</button>
+                    <div class="faq-a">Да, для этого совершите ритуал призыва на пункте выдачи ведьминских товаров (далее ПВВТ). Через несколько минут чек за заказ Вам принесет наш Вороний Курьер и вы сможете оплатить покупку — просто отдайте Курьеру кристаллы.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Что будет, если не прийти за заказом?</button>
+                    <div class="faq-a">Если в Вашем заказе находились скоропортящиеся товары, работник ПВВТ имеет право использовать их в своих целях. Если товар имеет пометку "живое" или "близкое к жизни", оно присоединится к зооуголку, который имеется в каждом ПВВТ. Если товар не имеет срока годности, либо срок годности исчисляется в десятилетиях — он отправится на склад к продавцу.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Как узнать график работы пункта выдачи?</button>
+                    <div class="faq-a">Уточните у Старшей Ведьмы в Вашей округе, какой сейчас день по лунному календарю. Стандартный график всех ПВВТ: в период нарастающей луны — с 11:15 до 23:45, в период стареющей луны — с 4:20 до 21:40, в полнолуние — круглосуточно.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Как перевести смертную валюту или ценные материалы в кристаллы?</button>
+                    <div class="faq-a">Наведайтесь в ближайший рудник и поговорите с представителем "Лавки Ведьм". Он поможет Вам с обменом валюты.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q-btn" type="button">Как изменить адрес доставки?</button>
+                    <div class="faq-a">Приготовьте зелье телепатии по инструкции от Старшей Ведьмы или книги рецептов и проведите ритуал соединения. Свяжитесь с нашей службой поддержки, представьтесь, укажите верный адрес, а после завершения ритуала оставьте на окне хвойную веточку. Не беспокойтесь, Вы не ошибетесь с целью соединения, нас очень легко найти!</div>
+                </div>
+            </div>
+            <div class="faq-bottom-btn-wrap">
+                <a href="index.html" class="back-to-shop-btn">← Вернуться на главную</a>
+            </div>
+        </main>
+    </div>
+    <script>
+    // Корзина — считаем уникальные позиции
+    function getCart() {
+        return JSON.parse(localStorage.getItem('witchCart') || '{}');
+    }
+    function updateCartCount() {
+        var cartCount = document.getElementById('cartCount');
+        if (!cartCount) return;
+        var cart = getCart();
+        var count = Object.keys(cart).length; // только уникальные позиции!
+        cartCount.textContent = count;
+    }
+    updateCartCount();
+
+    // FAQ раскрывающиеся вопросы
+    document.addEventListener('DOMContentLoaded', function() {
+        var faqBtns = document.querySelectorAll('.faq-q-btn');
+        faqBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = btn.closest('.faq-item');
+                // если уже открыт — закрыть
+                if (item.classList.contains('open')) {
+                    item.classList.remove('open');
+                } else {
+                    // закрыть все остальные
+                    document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+                        openItem.classList.remove('open');
+                    });
+                    item.classList.add('open');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,822 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=UnifrakturCook:wght@700&display=swap&subset=cyrillic');
+
+:root {
+    --dark-green: #1E3F20;
+    --brown: #4E3524;
+    --swamp: #6B8E23;
+    --beige: #F5E8C6;
+    --copper: #B87333;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: url('images/paper-texture.jpg') repeat, var(--beige);
+    font-family: 'Caveat', cursive, Arial, sans-serif;
+    min-width: 320px;
+    color: var(--dark-green);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* --- Боковые травы --- */
+.side-img {
+    position: fixed;
+    top: 0; bottom: 0;
+    width: 12vw;
+    min-width: 90px;
+    max-width: 180px;
+    background-repeat: repeat-y;
+    background-size: contain;
+    z-index: 5;
+    pointer-events: none;
+}
+.side-img.left  { left: 0; background-image: url('images/dry-herbs-left.png'); }
+.side-img.right { right: 0; background-image: url('images/dry-herbs-right.png'); }
+
+@media (max-width: 1300px) {
+    .side-img { width: 7vw; min-width: 55px; max-width: 90px; }
+}
+@media (max-width: 900px) {
+    .side-img { display: none; }
+}
+
+/* --- Шапка на всю ширину и центрирование логотипа --- */
+header, .wb-header {
+    width: 100vw;
+    min-width: 100vw;
+    left: 0; right: 0; top: 0;
+    margin: 0;
+    padding: 24px 0 12px 0;
+    background: var(--dark-green) url('images/wood-texture.jpg') repeat-x;
+    box-shadow: 0 2px 8px var(--brown);
+    border-bottom: 4px solid var(--copper);
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+.logo {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 3.3rem;
+    color: var(--copper);
+    letter-spacing: 6px;
+    text-shadow: 0 2px 8px var(--brown), 0 0 16px var(--beige);
+    margin-bottom: 8px;
+    filter: drop-shadow(0 2px 8px var(--brown));
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0 16px 0;
+    align-items: center;
+}
+.search-bar input[type="text"] {
+    width: 400px;
+    padding: 10px 16px;
+    border: 2px solid var(--swamp);
+    border-radius: 16px 0 0 16px;
+    font-size: 1.4rem;
+    background: var(--beige) url('images/paper-texture.jpg') repeat;
+    transition: border 0.2s;
+    outline: none;
+    color: var(--dark-green);
+    font-family: 'Caveat', cursive, Arial, sans-serif;
+}
+.search-bar button {
+    background: var(--copper);
+    color: #fff;
+    border: none;
+    border-radius: 0 16px 16px 0;
+    padding: 10px 24px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-family: 'Caveat', cursive;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px var(--brown)44;
+}
+.filters-btn {
+    background: var(--swamp);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 28px;
+    font-size: 1.2rem;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    margin-left: 14px;
+    transition: background 0.2s;
+}
+.filters-btn:hover { background: var(--copper);}
+.search-bar button:hover {
+    background: var(--swamp);
+}
+.cart-link {
+    position: fixed;
+    top: 32px;
+    right: 48px;
+    background: var(--copper);
+    color: #fff;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 1.25rem;
+    font-family: 'Caveat', cursive;
+    text-decoration: none;
+    box-shadow: 0 2px 12px var(--brown)55;
+    z-index: 20;
+    transition: background 0.2s;
+}
+.cart-link:hover {
+    background: var(--swamp);
+}
+.cart-count {
+    background: var(--swamp);
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 1.25rem;
+    margin-left: 8px;
+}
+
+/* --- Центральный блок между травами --- */
+.main-content {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    background: none;
+    padding-left: 9vw;
+    padding-right: 9vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+@media (max-width: 1300px) {
+    .main-content { padding-left: 6vw; padding-right: 6vw; }
+}
+@media (max-width: 900px) {
+    .main-content { padding-left: 0; padding-right: 0; }
+}
+
+/* --- Фильтры popup --- */
+.filters-popup {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(30, 63, 32, 0.25);
+    justify-content: center;
+    align-items: flex-start;
+}
+.filters-popup-content {
+    margin-top: 90px;
+    background: #fffbe6 url('images/paper-texture.jpg') repeat;
+    border: 2px solid var(--brown);
+    border-radius: 14px;
+    box-shadow: 0 4px 32px var(--brown)44;
+    padding: 24px 38px 18px 38px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    animation: modal-fade-in 0.2s;
+}
+.filters-close-btn {
+    background: var(--copper);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 1.3rem;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.filters-close-btn:hover { background: var(--swamp); }
+.filters-apply-btn {
+    background: var(--copper);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 1.1rem;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.filters-apply-btn:hover { background: var(--swamp);}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 18px;
+}
+.filter-group label {
+    font-size: 1.1rem;
+    color: var(--dark-green);
+    margin-bottom: 4px;
+    font-family: 'Caveat', cursive;
+}
+.filters-popup-content input[type="number"], .filters-popup-content select {
+    font-size: 1.1rem;
+    font-family: 'Caveat', cursive;
+    border-radius: 8px;
+    border: 1.5px solid var(--swamp);
+    padding: 5px 10px;
+    margin-bottom: 2px;
+    background: #fffbe6;
+    color: var(--dark-green);
+}
+@media (max-width: 1000px) {
+    .filters-popup-content { min-width: 90vw; padding: 18px 6vw; }
+    .filter-group { margin-right: 0;}
+}
+
+/* --- Сетка товаров — 6 карточек в строке, карточки широкие --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 0 40px 0;
+}
+@media (max-width: 1400px) {
+    .product-grid { grid-template-columns: repeat(4, 1fr);}
+}
+@media (max-width: 1000px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr);}
+}
+
+/* --- Карточка товара: всегда видны все элементы, крупнее --- */
+.product-card {
+    min-height: 480px;
+    height: 480px;
+    font-size: 1.25rem;
+    background: var(--beige) url('images/wood-texture.jpg') repeat;
+    background-size: cover;
+    border: 2.5px solid var(--brown);
+    border-radius: 18px;
+    box-shadow: 0 2px 16px var(--swamp)33, 0 1px 8px var(--brown)22;
+    overflow: hidden;
+    padding: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    position: relative;
+}
+.product-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 32px var(--brown)66, 0 2px 16px var(--swamp)55;
+    border-color: var(--copper);
+}
+.product-card::before {
+    content: "";
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 56px;
+    height: 56px;
+    background: url('images/mushroom.svg') no-repeat center/contain;
+    opacity: 0.13;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Свиток для названия */
+.product-title-scroll {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    min-height: 48px;
+    background: #fffbe6 url('images/paper-texture.jpg') repeat;
+    border-radius: 16px 16px 22px 22px/24px 24px 18px 18px;
+    box-shadow: 0 2px 8px var(--brown)22, 0 0 0 7px #fffbe6 inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    border-bottom: 3px solid #e7d6b1;
+    border-top: 2px solid #f3e9c7;
+    padding: 0 8px;
+}
+.product-title-scroll span {
+    font-family: 'Caveat', cursive;
+    font-size: 1.45rem;
+    color: var(--brown);
+    text-align: center;
+    padding: 8px 12px;
+    text-shadow: 0 1px 2px #fff;
+    width: 100%;
+    display: block;
+    letter-spacing: 0.5px;
+}
+
+/* Нижний блок карточки — ВСЕГДА виден */
+.product-card-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(30,63,32,0.92) 80%, rgba(30,63,32,0.08) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 16px 22px 16px;
+    box-sizing: border-box;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    z-index: 1;
+}
+.product-price {
+    color: var(--copper);
+    font-size: 1.35rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-shadow: 0 1px 6px var(--brown)80;
+    font-family: 'Caveat', cursive;
+}
+.crystal-icon {
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+.crystal-label {
+    font-family: 'Caveat', cursive;
+    margin-left: 2px;
+}
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    gap: 0;
+    height: 40px;
+    width: 100%;
+    max-width: 170px;
+}
+.quantity-selector button {
+    background: var(--swamp);
+    color: #fff;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-family: 'Caveat', cursive;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    user-select: none;
+}
+.quantity-selector button.q-plus {
+    border-radius: 0 8px 8px 0;
+    margin-left: -1px;
+}
+.quantity-selector button.q-minus {
+    border-radius: 8px 0 0 8px;
+    margin-right: -1px;
+}
+.quantity-selector button:hover {
+    background: var(--copper);
+}
+.quantity-selector .q-value {
+    width: 54px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.35rem;
+    border: 1px solid var(--copper);
+    border-left: none;
+    border-right: none;
+    background: #fffbe6;
+    color: var(--dark-green);
+    font-family: 'Caveat', cursive;
+    pointer-events: none;
+    outline: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+.add-to-cart-btn {
+    background: var(--copper);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-size: 1.35rem;
+    cursor: pointer;
+    font-family: 'Caveat', cursive;
+    box-shadow: 0 2px 8px var(--brown)55;
+    transition: background 0.2s, transform 0.1s;
+    width: 100%;
+    margin-top: 2px;
+}
+.add-to-cart-btn:hover {
+    background: var(--swamp);
+    transform: scale(1.04);
+}
+
+/* --- КОРЗИНА --- */
+.cart-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    color: var(--brown);
+    text-align: center;
+    margin: 36px 0 24px 0;
+}
+.cart-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.cart-item {
+    display: flex;
+    background: var(--dark-green) url('images/wood-texture.jpg') repeat;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px var(--swamp)33;
+    border: 2px solid var(--brown);
+    overflow: hidden;
+    align-items: center;
+    min-height: 140px;
+    position: relative;
+    padding-right: 20px;
+}
+.cart-item-img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    background: #f5e8c6;
+    flex-shrink: 0;
+    border-right: 2px solid #e7d6b1;
+}
+.cart-item-info {
+    flex: 1;
+    padding: 18px 26px 18px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.cart-item-title {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 6px var(--brown), 0 0 10px var(--dark-green);
+}
+.cart-item-price {
+    color: var(--copper);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Caveat', cursive;
+    text-shadow: 0 1px 6px var(--brown);
+}
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.cart-item-qty button {
+    background: var(--swamp);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-family: 'Caveat', cursive;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 8px var(--brown)44;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-item-qty button:hover {
+    background: var(--copper);
+    transform: scale(1.15);
+}
+.cart-item-qty input {
+    width: 48px;
+    height: 38px;
+    text-align: center;
+    font-size: 1.3rem;
+    border: 2px solid var(--copper);
+    background: transparent;
+    color: #fff;
+    font-family: 'Caveat', cursive;
+    border-radius: 8px;
+    margin: 0 4px;
+    box-shadow: 0 1px 6px var(--brown)22;
+}
+.cart-item-remove {
+    background: var(--copper);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-family: 'Caveat', cursive;
+    box-shadow: 0 2px 8px var(--brown)55;
+    transition: background 0.2s, transform 0.1s;
+    margin-left: auto;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-item-remove::after {
+    content: "✕";
+    font-size: 1.5rem;
+    font-family: inherit;
+}
+.cart-item-remove:hover {
+    background: var(--swamp);
+    transform: scale(1.15);
+}
+.cart-summary {
+    background: url('images/wood-texture.jpg') repeat;
+    padding: 12px 24px;
+    border-radius: 12px;
+    color: var(--copper);
+    font-size: 1.5rem;
+    font-family: 'Caveat', cursive;
+    text-align: right;
+    box-shadow: 0 2px 8px #4E352455;
+    margin: 36px auto 0 auto;
+    max-width: 900px;
+}
+.cart-empty {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    color: var(--swamp);
+    font-size: 1.5rem;
+    text-align: center;
+    text-shadow: 0 1px 6px var(--brown);
+}
+.cart-actions {
+    max-width: 900px;
+    margin: 32px auto 0 auto;
+    text-align: right;
+}
+.clear-cart-btn {
+    background: var(--swamp);
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 12px 30px;
+    font-size: 1.25rem;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--brown)55;
+    transition: background 0.2s, transform 0.1s;
+    margin: 20px auto 0 auto;
+    display: block;
+    max-width: 220px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.clear-cart-btn:hover {
+    background: var(--copper);
+    transform: scale(1.04);
+}
+.back-to-shop-btn {
+    background: var(--copper);
+    color: #fff;
+    border-radius: 18px;
+    padding: 12px 30px;
+    font-size: 1.25rem;
+    font-family: 'Caveat', cursive;
+    text-decoration: none;
+    box-shadow: 0 2px 8px var(--brown)55;
+    transition: background 0.2s, transform 0.1s;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-top: 18px;
+    display: inline-block;
+}
+.back-to-shop-btn:hover {
+    background: var(--swamp);
+    transform: scale(1.04);
+}
+@media (max-width: 1000px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr);}
+    .cart-grid, .cart-summary, .cart-actions { max-width: 98vw;}
+    .cart-item-info { padding: 14px 10px;}
+    .cart-item-img { width: 90px; height: 90px;}
+}
+
+/* --- Модальное окно --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(30, 63, 32, 0.65);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #fffbe6 url('images/paper-texture.jpg') repeat;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px var(--brown)80;
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    width: 95vw;
+    padding: 0;
+    position: relative;
+    animation: modal-fade-in 0.2s;
+}
+@keyframes modal-fade-in {
+    from { opacity: 0; transform: scale(0.95);}
+    to { opacity: 1; transform: scale(1);}
+}
+.modal-close {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 2.2rem;
+    color: var(--copper);
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.2s;
+}
+.modal-close:hover { color: var(--swamp); }
+.modal-body {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: stretch;
+    min-height: 320px;
+}
+.modal-img {
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
+    border-radius: 18px 0 0 18px;
+    background: #f5e8c6;
+    flex-shrink: 0;
+}
+.modal-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32px 32px 32px 24px;
+}
+.modal-title {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--brown);
+    margin-bottom: 18px;
+}
+.modal-price {
+    color: var(--copper);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Caveat', cursive;
+}
+.modal-quantity {
+    margin-bottom: 18px;
+}
+@media (max-width: 800px) {
+    .modal-body { flex-direction: column; align-items: center;}
+    .modal-img { width: 100%; height: 220px; border-radius: 18px 18px 0 0;}
+    .modal-info { padding: 18px 12px 24px 12px;}
+}
+
+.modal-desc {
+    font-size: 1.15rem;
+    color: var(--dark-green);
+    margin: 18px 0 12px 0;
+    font-family: 'Caveat', cursive;
+    line-height: 1.5;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+.support-widget {
+    position: fixed;
+    left: 16px;
+    bottom: 36px;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.support-btn {
+    background: var(--swamp);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 8px 18px;
+    font-size: 1.05rem;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    box-shadow: 0 2px 12px var(--brown)44;
+    margin-bottom: 8px;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.support-btn:hover {
+    background: var(--copper);
+    transform: scale(1.04);
+}
+
+.support-popup {
+    background: #fffbe6 url('images/paper-texture.jpg') repeat;
+    border: 2px solid var(--brown);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px var(--brown)33;
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 220px;
+    animation: modal-fade-in 0.2s;
+}
+
+.support-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.15rem;
+    gap: 10px;
+}
+
+.support-icon {
+    width: 1.6em;
+    height: 1.6em;
+    object-fit: contain;
+    margin-right: 8px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.support-link {
+    color: var(--dark-green);
+    text-decoration: none;
+    font-family: 'Caveat', cursive;
+    transition: color 0.2s;
+}
+
+.support-link:hover {
+    color: var(--copper);
+    text-decoration: underline;
+}
+
+.support-faq-btn {
+    font-weight: bold;
+    color: var(--swamp);
+    margin-left: 2px;
+}
+
+.support-faq-btn:hover {
+    color: var(--copper);
+}
+
+@media (max-width: 700px) {
+    .support-widget {
+        left: 6px;
+        bottom: 10px;
+    }
+    .support-popup {
+        min-width: 150px;
+        padding: 10px 10px;
+        font-size: 1rem;
+    }
+}
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Лавка Ведьм</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Caveat:wght@500;700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="side-img left"></div>
+    <div class="side-img right"></div>
+    <header>
+        <div class="logo">Лавка Ведьм</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Поиск ведьминских товаров...">
+            <button id="searchBtn">🔍</button>
+            <button id="filtersToggle" class="filters-btn">Фильтры</button>
+        </div>
+    </header>
+
+	<a href="cart.html" class="cart-link">
+    🧺 Корзина <span class="cart-count" id="cartCount">0</span>
+</a>
+
+	<div class="support-widget" id="supportWidget">
+		<button class="support-btn" id="supportBtn">🧙‍♀️ Поддержка</button>
+		<div class="support-popup" id="supportPopup" style="display:none;">
+			<div class="support-item">
+				<img class="support-icon" src="assets/images/phone.png" alt="Телефон">
+				<a href="tel:+79999999999" class="support-link">+7 999 999 99 99</a>
+			</div>
+			<div class="support-item">
+				<img class="support-icon" src="assets/images/email.png" alt="Почта">
+				<a href="mailto:support@witchshop.ru" class="support-link">support@witchshop.ru</a>
+			</div>
+			<div class="support-item">
+				<img class="support-icon" src="assets/images/faq.png" alt="FAQ">
+				<a href="faq.html" class="support-link support-faq-btn">FAQ</a>
+			</div>
+		</div>
+	</div>
+
+    <div class="main-content">
+        <main>
+            <div class="product-grid" id="productGrid"></div>
+            <div class="loader" id="loader" style="display:none;">
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+            </div>
+            <div id="endMsg" style="text-align:center; color:#6B8E23; margin:24px 0 0 0; display:none;">
+                Все товары загружены!
+            </div>
+            <div id="errorMsg" style="text-align:center; color:#B87333; margin:24px 0 0 0; display:none;">
+                Не удалось загрузить товары. Попробуйте позже.
+            </div>
+        </main>
+    </div>
+    <!-- Фильтры как popup: ВНЕ .main-content и ПОСЛЕ header! -->
+    <div id="filtersBox" class="filters-popup" style="display:none;">
+        <div class="filters-popup-content">
+            <div class="filter-group">
+                <label>Категория:</label>
+                <select id="filterCategory">
+                    <option value="all">Все</option>
+                    <option value="tools">Инструменты</option>
+                    <option value="ingredients">Ингредиенты</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Цена:</label>
+                <input type="number" id="filterMinPrice" placeholder="от" min="0" style="width:70px;">
+                <input type="number" id="filterMaxPrice" placeholder="до" min="0" style="width:70px;">
+            </div>
+            <div style="display:flex;gap:12px;justify-content:flex-end;">
+                <button id="filtersApply" class="filters-apply-btn">Применить</button>
+                <button id="filtersClose" class="filters-close-btn">×</button>
+            </div>
+        </div>
+    </div>
+	<!-- Модальное окно товара (исправленное) -->
+	<div id="productModal" class="modal" style="display:none;">
+		<div class="modal-content">
+			<span class="modal-close" id="modalClose">&times;</span>
+			<div class="modal-body">
+				<img id="modalImg" src="" alt="" class="modal-img">
+				<div class="modal-info">
+					<div class="modal-title" id="modalTitle"></div>
+					<div class="modal-desc" id="modalDesc"></div>
+					<div class="modal-price" id="modalPrice"></div>
+					<div class="quantity-selector modal-quantity">
+						<button class="q-minus" id="modalMinus">-</button>
+						<input type="text" class="q-value" id="modalQValue" value="1" maxlength="3" readonly>
+						<button class="q-plus" id="modalPlus">+</button>
+					</div>
+					<button class="add-to-cart-btn" id="modalAddToCart">В корзину</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script src="assets/script.js"></script>
+</body>
+</html>
